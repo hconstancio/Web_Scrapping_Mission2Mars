@@ -17,11 +17,9 @@ def init_browser():
 
 def scrape ():
 #scrape NASA Mars News Site to collect the information
-    browser = init_browser()
-    mars_data = {}
-
     nasa_url = 'https://mars.nasa.gov/news/'
     browser.visit(nasa_url)
+
     time.sleep(1)
     nasa_html = browser.html
     nasa_soup = bs(nasa_html, 'html.parser')
@@ -30,12 +28,10 @@ def scrape ():
     first_item = news_list.find('li', class_='slide')
     nasa_headline = first_item.find('div', class_='content_title').text
     nasa_teaser = first_item.find('div', class_='article_teaser_body').text
-    mars_data["nasa_headline"] = nasa_headline
-    mars_data["nasa_teaser"] = nasa_teaser
 
 # visit the JPL website and scrape the featured image
-    jpl_url = 'https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars'
-    browser.visit(jpl_url)
+    url = "https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars"
+    browser.visit(url) 
     time.sleep(1)
     browser.click_link_by_partial_text('FULL IMAGE')
     time.sleep(1)
